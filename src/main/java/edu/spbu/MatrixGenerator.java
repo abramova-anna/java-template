@@ -29,10 +29,10 @@ public class MatrixGenerator
     this.size = size;
     this.file = file;
     rnd = new Random(seed);
-    emptyRow = Collections.nCopies(size, "0").stream().collect(Collectors.joining(" "));
+    emptyRow = String.join(" ", Collections.nCopies(size, "0"));
   }
 
-  public static void main(String args[])
+  public static void main(String[] args)
   {
     try
     {
@@ -86,8 +86,10 @@ public class MatrixGenerator
 
   private String generateRow()
   {
-    return rnd.ints(0, emptyRowFraction).limit(size).mapToObj(r -> (r == 0) ? "" + rnd.nextInt(10000) : "0")
+    final String collect;
+    collect = rnd.ints(0, emptyRowFraction).limit(size).mapToObj(r -> (r == 0) ? "" + rnd.nextInt(10000) : "0")
             .collect(Collectors.joining(" "));
+    return collect;
   }
 
 }
